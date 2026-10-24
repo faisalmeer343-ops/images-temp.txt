@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pakistani Restaurant POS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <h1>🍽️ Pakistani Restaurant POS</h1>
+        </div>
+        <div class="header-info">
+            <span id="dateTime"></span>
+            <button class="btn-logout" onclick="logout()">Logout</button>
+        </div>
+    </header>
+
+    <div class="main-container">
+
+        <!-- ================= SIDEBAR ================= -->
+        <aside class="sidebar">
+            <h3>📂 Categories</h3>
+            <div class="sidebar-categories" id="sidebarCategories">
+                <!-- Categories JS se load hongi -->
+            </div>
+            <button class="btn-add-category" onclick="openCategoryModal()">➕ Add Category</button>
+
+            <hr class="sidebar-divider">
+
+            <button class="btn-add-item" onclick="openItemModal()">➕ Add New Item</button>
+        </aside>
+
+        <!-- ================= MENU SECTION ================= -->
+        <div class="menu-section">
+
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="🔍 Search item..." onkeyup="searchItems()">
+            </div>
+
+            <div class="menu-header">
+                <h2 id="currentCategoryTitle">All Items</h2>
+                <span id="itemCount" class="item-count">0 items</span>
+            </div>
+
+            <div class="menu-grid" id="menuGrid"></div>
+        </div>
+
+        <!-- ================= CART SECTION ================= -->
+        <div class="cart-section">
+            <h2>🛒 Current Order</h2>
+            
+            <div class="customer-info">
+                <input type="text" id="customerName" placeholder="Customer Name">
+                <input type="text" id="tableNo" placeholder="Table No.">
+            </div>
+
+            <div class="cart-items" id="cartItems">
+                <p class="empty-cart">Cart khali hai</p>
+            </div>
+
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">Rs. 0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax (5%):</span>
+                    <span id="tax">Rs. 0</span>
+                </div>
+                <div class="summary-row discount-row">
+                    <span>Discount:</span>
+                    <input type="number" id="discount" value="0" onchange="updateCart()" min="0">
+                </div>
+                <div class="summary-row total-row">
+                    <span>Total:</span>
+                    <span id="total">Rs. 0</span>
+                </div>
+            </div>
+
+            <div class="cart-actions">
+                <button class="btn-clear" onclick="clearCart()">Clear</button>
+                <button class="btn-checkout" onclick="checkout()">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= ADD/EDIT ITEM MODAL ================= -->
+    <div class="modal" id="itemModal">
+        <div class="modal-content">
+            <h2 id="itemModalTitle">➕ Add New Item</h2>
+
+            <label>Item Name</label>
+            <input type="text" id="itemName" placeholder="e.g. Chicken Tikka">
+
+            <label>Price (Rs.)</label>
+            <input type="number" id="itemPrice" placeholder="e.g. 450" min="0">
+
+            <label>Category</label>
+            <select id="itemCategory"></select>
+
+            <label>Image Path (optional)</label>
+            <input type="text" id="itemImage" placeholder="images/chicken-tikka.jpg">
+
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeItemModal()">Cancel</button>
+                <button class="btn-save" onclick="saveItem()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= ADD CATEGORY MODAL ================= -->
+    <div class="modal" id="categoryModal">
+        <div class="modal-content">
+            <h2>➕ Add New Category</h2>
+
+            <label>Category Name</label>
+            <input type="text" id="categoryName" placeholder="e.g. Chinese">
+
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeCategoryModal()">Cancel</button>
+                <button class="btn-save" onclick="saveCategory()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= RECEIPT MODAL ================= -->
+    <div class="modal" id="receiptModal">
+        <div class="modal-content">
+            <h2>✅ Order Confirmed</h2>
+            <div id="receiptContent"></div>
+            <button class="btn-print" onclick="printReceipt()">🖨️ Print Receipt</button>
+            <button class="btn-close" onclick="closeReceiptModal()">Close</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
